@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       loading={null}
       persistor={persistor}
     > */}
-    <BrowserRouter basename={isDev ? '/' : '/webpack-template-v1.1.1/'}>
+    <BrowserRouter basename={isDev ? '/' : '/spa-countdown-timers/'}>
       <HelmetProvider>
         <App />
       </HelmetProvider>
