@@ -1,29 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './tailwind.css';
-import { HelmetProvider } from 'react-helmet-async';
-//import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 
-//import { PersistGate } from 'redux-persist/integration/react';
-//import { persistor, store } from './redux/store';
+import './tailwind.css';
+import { theme } from '@/Theme';
 import { App } from '@/components/App';
+import TimersProvider from '@/contexts/timers/Provider';
 
 const isDev = process.env.NODE_ENV === 'development';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    {/* <Provider store={store}> */}
-    {/* <PersistGate
-      loading={null}
-      persistor={persistor}
-    > */}
-    <BrowserRouter basename={isDev ? '/' : '/spa-countdown-timers/'}>
-      <HelmetProvider>
+    <TimersProvider>
+      <ThemeProvider theme={theme}>
         <App />
-      </HelmetProvider>
-    </BrowserRouter>
-    {/* </PersistGate> */}
-    {/* </Provider> */}
+      </ThemeProvider>
+    </TimersProvider>
   </React.StrictMode>
 );

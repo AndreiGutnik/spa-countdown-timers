@@ -1,14 +1,18 @@
-import { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { ReactNode } from 'react';
 
-export const Layout = () => {
+import { Header } from './Header';
+
+export interface LayoutProps {
+  children?: ReactNode;
+}
+
+export default function Layout({ children }: LayoutProps) {
   return (
     <>
-      <main>
-        <Suspense fallback={null}>
-          <Outlet />
-        </Suspense>
-      </main>
+      <header>
+        <Header />
+      </header>
+      <main>{children}</main>
     </>
   );
-};
+}

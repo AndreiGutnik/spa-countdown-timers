@@ -71,7 +71,7 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
   //CSS
   const cssLoader = {
     test: /\.css$/i,
-    use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader'],
+    use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
   };
 
   //ts-loader
