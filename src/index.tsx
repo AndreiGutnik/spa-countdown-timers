@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import './tailwind.css';
 import { HelmetProvider } from 'react-helmet-async';
 //import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
