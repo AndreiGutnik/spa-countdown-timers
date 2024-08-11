@@ -30,7 +30,6 @@
 `npm run build`
 
 - Build app once (HMR disabled) to `/dist/`
-- App served @ `http://localhost:3000`
 
 ---
 

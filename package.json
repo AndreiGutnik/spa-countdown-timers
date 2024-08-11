@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack serve --env mode=development",
     "dev": "webpack --env mode=development",
-    "build": "webpack serve --env mode=production",
+    "build": "webpack --env mode=production",
     "typecheck": "tsc"
   },
   "keywords": [],
