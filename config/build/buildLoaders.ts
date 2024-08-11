@@ -18,46 +18,6 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
     },
   };
 
-  //SVG sprite
-  const sbgSpriteLoader = {
-    test: /\.svg$/i,
-    include: /.*_sprite\.svg/,
-    use: [
-      {
-        loader: 'svg-sprite-loader',
-        options: {
-          publicPath: '',
-          runtimeCompat: true,
-        },
-      },
-    ],
-  };
-
-  //SVG
-  const svgLoader = {
-    test: /\.svg$/i,
-    issuer: /\.[jt]sx?$/,
-    exclude: /.*_sprite\.svg/,
-    use: [
-      {
-        loader: '@svgr/webpack',
-        options: {
-          icon: true,
-          svgoConfig: {
-            plugins: [
-              {
-                name: 'convertColors',
-                params: {
-                  currentColor: true,
-                },
-              },
-            ],
-          },
-        },
-      },
-    ],
-  };
-
   //assets images
   const assetLoader = {
     test: /\.(png|jpg|jpeg|gif)$/i,
@@ -94,12 +54,5 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
   //babel-loader
   const babelLoader = buildBabelLoader(options);
 
-  return [
-    assetLoader,
-    cssLoader,
-    //tsLoader,
-    babelLoader,
-    svgLoader,
-    fontsLoader,
-  ];
+  return [assetLoader, cssLoader, babelLoader, fontsLoader];
 }

@@ -51,7 +51,7 @@ export default function AddTimerForm({ onSubmit }: AddTimerFormProps) {
           autoComplete="off"
           className="flex flex-col gap-5"
         >
-          <p className="m-auto text-xl ">Add new timer</p>
+          {/* <p className="m-auto text-xl ">Add new timer</p> */}
           <div className="mt-3">
             <label htmlFor={labelNameId}>Name of timer:</label>
             <Field
@@ -70,7 +70,7 @@ export default function AddTimerForm({ onSubmit }: AddTimerFormProps) {
             align="center"
             justify="center"
           >
-            <label className="flex align-items-center gap-2 text-xl">
+            <label className="flex align-items-center gap-2">
               <Field
                 type="radio"
                 name="variant"
@@ -79,7 +79,7 @@ export default function AddTimerForm({ onSubmit }: AddTimerFormProps) {
               Timer until time
             </label>
 
-            <label className="flex align-items-center gap-2 text-xl">
+            <label className="flex align-items-center gap-2">
               <Field
                 type="radio"
                 name="variant"

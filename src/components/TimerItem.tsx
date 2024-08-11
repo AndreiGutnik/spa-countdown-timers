@@ -1,11 +1,14 @@
+import { ExclamationCircleFilled } from '@ant-design/icons';
 import { Flex } from 'antd';
+import { Modal } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
 import { Timer, useTimer } from '../contexts/timers/Provider';
 import { msToDayTime, msToTime } from '../helpers/helpers';
 
-import DeleteTimerFormModal from './Delete-timer-form-modal';
 import TimerStyles, { Style } from './TimerStyles';
+
+const { confirm } = Modal;
 
 export interface TimerItemProps {
   timer: Timer;
@@ -67,6 +70,19 @@ export default function TimerItem({ timer }: TimerItemProps) {
     setShow(false);
   };
 
+  const showConfirm = () => {
+    confirm({
+      title: 'Do you want to delete these items?',
+      icon: <ExclamationCircleFilled />,
+      onOk() {
+        onDelete();
+      },
+      onCancel() {
+        setShow(false);
+      },
+    });
+  };
+
   return (
     <>
       <TimerStyles style={Style[timer.style as keyof typeof Style]}>
@@ -94,18 +110,13 @@ export default function TimerItem({ timer }: TimerItemProps) {
           <button
             type="button"
             className="h-8 px-3 py-1 bg-slate-50 rounded-2xl text-sm font-medium border-2 border-gray-600 transition duration-250 eease-in hover:border-transparent hover:bg-red-500 hover:text-slate-50"
-            onClick={() => setShow(true)}
+            // onClick={() => setShow(true)}
+            onClick={showConfirm}
           >
             Delete
           </button>
         </Flex>
       </TimerStyles>
-      <DeleteTimerFormModal
-        onDelete={onDelete}
-        show={show}
-        onClose={onClose}
-        handleClose={onClose}
-      />
     </>
   );
 }

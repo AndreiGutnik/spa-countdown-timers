@@ -1,7 +1,12 @@
-import React from 'react';
+import { Modal } from 'antd';
 
 import AddTimerForm, { AddTimerFormProps } from './Add-timer-form';
-import Modal, { ModalProps } from './Modal';
+
+export interface ModalProps {
+  open: boolean;
+  onCancel: () => void;
+  footer: null;
+}
 
 export interface AddTimerFormModalProps extends ModalProps {
   onSubmit: AddTimerFormProps['onSubmit'];
@@ -9,7 +14,10 @@ export interface AddTimerFormModalProps extends ModalProps {
 
 export default function AddTimerFormModal({ onSubmit, ...rest }: AddTimerFormModalProps) {
   return (
-    <Modal {...rest}>
+    <Modal
+      title={<p className="text-center text-xl ">Add new timer</p>}
+      {...rest}
+    >
       <AddTimerForm onSubmit={onSubmit} />
     </Modal>
   );

@@ -47,8 +47,9 @@ export default function AddTimerButton() {
       </div>
       <AddTimerFormModal
         onSubmit={handleAddTimer}
-        show={show}
-        onClose={() => setShow(false)}
+        open={show}
+        onCancel={() => setShow(false)}
+        footer={null}
       />
     </>
   );
