@@ -1,16 +1,23 @@
-import React, { useId } from 'react';
+import { Button, Flex } from 'antd';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useId } from 'react';
 
 export interface AddTimerInputValues {
   name: string;
   timer: string;
   style: string;
+  variant: string;
+  date: string;
+  time: string;
 }
 
 const initialValues = {
   name: '',
   timer: '00:00:00',
   style: 'Green',
+  variant: 'VarTime',
+  date: '',
+  time: '',
 };
 
 interface FormErrorProps {
@@ -18,7 +25,12 @@ interface FormErrorProps {
 }
 
 const FormError = ({ name }: FormErrorProps) => {
-  return <ErrorMessage name={name} render={message => <p className="text-red-500">{message}</p>} />;
+  return (
+    <ErrorMessage
+      name={name}
+      render={message => <p className="text-red-500">{message}</p>}
+    />
+  );
 };
 
 export interface AddTimerFormProps {
@@ -30,9 +42,15 @@ export default function AddTimerForm({ onSubmit }: AddTimerFormProps) {
   const labelTimerId = useId();
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
-      {({ isSubmitting }) => (
-        <Form autoComplete="off" className="flex flex-col gap-5">
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+    >
+      {({ isSubmitting, values }) => (
+        <Form
+          autoComplete="off"
+          className="flex flex-col gap-5"
+        >
           <p className="m-auto text-xl ">Add new timer</p>
           <div className="mt-3">
             <label htmlFor={labelNameId}>Name of timer:</label>
@@ -47,48 +65,129 @@ export default function AddTimerForm({ onSubmit }: AddTimerFormProps) {
             />
             <FormError name="name" />
           </div>
+          <Flex
+            gap="large"
+            align="center"
+            justify="center"
+          >
+            <label className="flex align-items-center gap-2 text-xl">
+              <Field
+                type="radio"
+                name="variant"
+                value="VarTime"
+              />
+              Timer until time
+            </label>
 
-          <div>
-            <label htmlFor={labelTimerId}>Timer:</label>
-            <Field
-              className="m-auto text-3xl mb-3"
-              id={labelTimerId}
-              type="time"
-              name="timer"
-              step="1"
-            />
-          </div>
+            <label className="flex align-items-center gap-2 text-xl">
+              <Field
+                type="radio"
+                name="variant"
+                value="VarDateTime"
+              />
+              Timer until date and time
+            </label>
+          </Flex>
+          {values.variant === 'VarTime' && (
+            <div>
+              <label htmlFor={labelTimerId}>Timer:</label>
+              <Field
+                className="m-auto text-3xl mb-3"
+                id={labelTimerId}
+                type="time"
+                name="timer"
+                step="1"
+              />
+            </div>
+          )}
+          {values.variant === 'VarDateTime' && (
+            <>
+              <div>
+                <label htmlFor="date">Date:</label>
+                <Field
+                  className="m-auto text-3xl mb-3"
+                  required
+                  type="date"
+                  id="date"
+                  name="date"
+                />
+              </div>
+              <div>
+                <label htmlFor="timeUntil">Time:</label>
+                <Field
+                  className="m-auto text-3xl mb-3"
+                  required
+                  type="time"
+                  id="timeUntil"
+                  name="time"
+                  step="1"
+                />
+              </div>
+            </>
+          )}
 
-          <div
-            className="flex items-center gap-3 m-auto"
+          <Flex
+            gap="middle"
             role="group"
             aria-labelledby="style-radio-group"
           >
-            <div className="w-[100px] inline-flex items-center px-3.5 py-1 rounded-full text-sm bg-green-100 text-green-700">
-              <Field className="mr-2" type="radio" name="style" value="Green" />
+            <Flex
+              gap="small"
+              className="w-[100px] px-3.5 py-1 rounded-full text-sm bg-green-100 text-green-700"
+            >
+              <Field
+                className="mr-2"
+                type="radio"
+                name="style"
+                value="Green"
+              />
               Green
-            </div>
-            <div className="w-[100px] inline-flex items-center px-3.5 py-1 rounded-full text-sm bg-red-100 text-red-700">
-              <Field className="mr-2" type="radio" name="style" value="Red" />
-              Red
-            </div>
-            <div className="w-[100px] inline-flex items-center px-3.5 py-1 rounded-full text-sm bg-orange-100 text-orange-700">
-              <Field className="mr-2" type="radio" name="style" value="Orange" />
-              Orange
-            </div>
-            <div className="w-[100px] inline-flex items-center px-3.5 py-1 rounded-full text-sm bg-blue-100 text-blue-700">
-              <Field className="mr-2" type="radio" name="style" value="Blue" />
-              Blue
-            </div>
-          </div>
+            </Flex>
 
-          <button
-            className="w-[100px] m-auto px-2 py-1 border-2 rounded-xl border-gray-600 transition duration-250 eease-in hover:scale-105"
-            type="submit"
-            disabled={isSubmitting}
+            <Flex
+              gap="small"
+              className="w-[100px] px-3.5 py-1 rounded-full text-sm bg-red-100 text-red-700"
+            >
+              <Field
+                className="mr-2"
+                type="radio"
+                name="style"
+                value="Red"
+              />
+              Red
+            </Flex>
+            <Flex
+              gap="small"
+              className="w-[100px] px-3.5 py-1 rounded-full text-sm bg-orange-100 text-orange-700"
+            >
+              <Field
+                className="mr-2"
+                type="radio"
+                name="style"
+                value="Orange"
+              />
+              Orange
+            </Flex>
+            <Flex
+              gap="small"
+              className="w-[100px] px-3.5 py-1 rounded-full text-sm bg-blue-100 text-blue-700"
+            >
+              <Field
+                className="mr-2"
+                type="radio"
+                name="style"
+                value="Blue"
+              />
+              Blue
+            </Flex>
+          </Flex>
+
+          <Button
+            type="primary"
+            htmlType="submit"
           >
             Add timer
-          </button>
+          </Button>
         </Form>
       )}
     </Formik>

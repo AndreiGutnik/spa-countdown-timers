@@ -1,10 +1,11 @@
-import React, { ReactNode, useContext, useEffect, useMemo, useState, createContext } from 'react';
+import React, { ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 export interface Timer {
   id: string;
   name: string;
-  timer: string;
+  timer: number;
   style: string;
+  variant: string;
 }
 
 interface ContextProviderType {

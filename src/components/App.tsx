@@ -3,6 +3,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 
 import AddTimerButton from './Add-timer-button';
 import Layout from './Layout';
+import TimersList from './TimersList';
 import { GlobalStyle } from '@/Globalstyle';
 
 export const App = () => {
@@ -10,7 +11,7 @@ export const App = () => {
     <>
       <Layout>
         <AddTimerButton />
-        {/* <TimersList /> */}
+        <TimersList />
       </Layout>
       <GlobalStyle />
     </>

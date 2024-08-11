@@ -1,8 +1,13 @@
-import React, { lazy, useState } from 'react';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import { nanoid } from 'nanoid';
-import { PlusIcon } from '@heroicons/react/24/solid';
-import { AddTimerInputValues } from './Add-timer-form';
+import { lazy, useState } from 'react';
+
 import { useTimer } from '../contexts/timers/Provider';
+
+import { AddTimerInputValues } from './Add-timer-form';
+import { timerToMs } from '@/helpers/helpers';
+
 const AddTimerFormModal = lazy(() => import('./Add-timer-form-modal'));
 
 export default function AddTimerButton() {
@@ -11,7 +16,16 @@ export default function AddTimerButton() {
 
   const handleAddTimer = (values: AddTimerInputValues) => {
     const id = nanoid();
-    const currentTimer = { id, ...values };
+    let timer;
+    if (values.variant === 'VarTime') {
+      timer = timerToMs(values.timer);
+    }
+    if (values.variant === 'VarDateTime') {
+      const DateMs = Date.parse(`${values.date} ${values.time}`);
+      timer = DateMs - Date.now();
+    }
+
+    const currentTimer = { ...values, timer, id };
     addTimer(currentTimer);
     const timersLocalStorage = JSON.parse(localStorage.getItem('timers') || '');
     localStorage.setItem('timers', JSON.stringify([...timersLocalStorage, currentTimer]));
@@ -21,17 +35,21 @@ export default function AddTimerButton() {
   return (
     <>
       <div className="px-5 py-3 mt-3 mb-5 border-b-4 rounded border-gray-600">
-        <button
-          className="flex gap-2 items-center px-3 py-2 transition duration-250 eease-in hover:scale-105"
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
           onClick={() => {
             setShow(true);
           }}
         >
-          <PlusIcon className="h-5 w-5" />
           Add timer
-        </button>
+        </Button>
       </div>
-      <AddTimerFormModal onSubmit={handleAddTimer} show={show} onClose={() => setShow(false)} />
+      <AddTimerFormModal
+        onSubmit={handleAddTimer}
+        show={show}
+        onClose={() => setShow(false)}
+      />
     </>
   );
 }
